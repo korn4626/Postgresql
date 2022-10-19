@@ -80,10 +80,13 @@ set key = convert_from(decrypt(decode(tmp_dat.key, 'base64'), '7a11b8b3f1e48b771
 update tmp_dat
 set key = encode(encrypt(tmp_dat.key::bytea, '7a11b8b3f1e48b771808bd437a29181b', 'AES'), 'base64');
 ```
-> 이방식으로 join시에도 이상없이 join되는 부분 확인. python script로 암복호화 내용 동일한 부분 확인
+> 이방식으로 join시에도 이상없이 join되는 부분 확인. 
+
+> python script로 암복호화 내용 동일한 부분 확인
 
 이슈사항
 > 특정케이스인지 몰라도 테이블을 join할 경우 on절에 복호화로직 적용할 경우 속도가 느려지는 상황 발생(기존 0.5초 -> 14.3초)
+
 > Temp table 생성하는 방향으로 수정
 ```sql
 --방법1
